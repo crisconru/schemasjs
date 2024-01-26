@@ -2,13 +2,15 @@
   "name": "schemasjs",
   "version": "1.0.0",
   "description": "Javascript (and Typescript) schemas to guarantee runtime type checking",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "author": "Cristobal Contreras Rubio",
+  "license": "MIT",
+  "homepage": "https://github.com/crisconru/schemasjs#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crisconru/schemasjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crisconru/schemasjs/issues"
   },
   "keywords": [
     "schemas",
@@ -18,12 +20,10 @@
     "float",
     "c-types"
   ],
-  "author": "Cristobal Contreras Rubio",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/crisconru/schemasjs/issues"
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/crisconru/schemasjs#readme",
   "dependencies": {
     "valibot": "^0.27.0"
   },
