@@ -85,6 +85,16 @@ export type Int32 = v.Input<typeof Int32Schema>
 
 export const BigIntSchema = v.bigint()
 
+// FLOATS
+export const FLOAT32_MIN = -3.4e38
+export const FLOAT32_MAX = -FLOAT32_MIN
+export const Float32Schema = v.number([v.minValue(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`), v.maxValue(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)])
+export type Float32 = v.Input<typeof Float32Schema>
+
+export const FLOAT64_MIN = -1.8e308
+export const FLOAT64_MAX = -FLOAT64_MIN
+export const Float64Schema = v.number([v.minValue(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`), v.maxValue(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)])
+export type Float64 = v.Input<typeof Float64Schema>
 // TYPED ARRAYS
 export const passToArray = (value: number, min: number, max: number): number[] => {
   let array: number[] = []
@@ -112,3 +122,5 @@ export const Uint8ArraySchema = v.transform(IntegerSchema, (input) => Uint8Array
 export const Uint16ArraySchema = v.transform(IntegerSchema, (input) => Uint16Array.from(passToArray(input, UINT_MIN, UINT16_MAX)))
 export const Uint32ArraySchema = v.transform(IntegerSchema, (input) => Uint32Array.from(passToArray(input, UINT_MIN, UINT32_MAX)))
 
+export const Float32ArraySchema = v.transform(v.number(), (input) => Float32Array.from(passToArray(input, FLOAT32_MIN, FLOAT32_MAX)))
+export const Float64ArraySchema = v.transform(v.number(), (input) => Float64Array.from(passToArray(input, FLOAT64_MIN, FLOAT64_MAX)))

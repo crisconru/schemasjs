@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 import { describe, test, expect } from 'vitest'
-import { BigUintSchema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16Schema, Int32ArraySchema, Int32Schema, Int8ArraySchema, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16Schema, Uint32ArraySchema, Uint32Schema, Uint8ArraySchema, Uint8Schema, passToArray } from '../src'
+import { BigUintSchema, FLOAT32_MAX, FLOAT32_MIN, Float32Schema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16Schema, Int32ArraySchema, Int32Schema, Int8ArraySchema, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16Schema, Uint32ArraySchema, Uint32Schema, Uint8ArraySchema, Uint8Schema, passToArray } from '../src'
 
 describe('Unsigned Integers', () => {
   test('Uint8', () => {
@@ -114,6 +114,25 @@ describe('Integers', () => {
     expect(result.success).toBeFalsy()
     if(result.issues)
       expect(result.issues[0].message).toBe(`It should be less than ${INT32_MAX + 1}`)
+  })
+})
+
+describe('Floats', () => {
+  test('Float32', () => {
+    let value: number
+    let result: ReturnType<typeof v.safeParse>
+    // Less than min
+    value = FLOAT32_MIN - 1.1e38
+    result = v.safeParse(Float32Schema, value)
+    expect(result.success).toBeFalsy()
+    if(result.issues)
+      expect(result.issues[0].message).toBe(`It should be greater than or equal to ${FLOAT32_MIN}`)
+    // More than max
+    value = FLOAT32_MAX + 1.1e38
+    result = v.safeParse(Float32Schema, value)
+    expect(result.success).toBeFalsy()
+    if(result.issues)
+      expect(result.issues[0].message).toBe(`It should be less than or equal to ${FLOAT32_MAX}`)
   })
 })
 
