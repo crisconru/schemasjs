@@ -114,13 +114,13 @@ export const passToArray = (value: number, min: number, max: number): number[] =
   return array
 }
 
-export const Int8ArraySchema = v.transform(IntegerSchema, (input) => Int8Array.from(passToArray(input, INT8_MIN, INT8_MAX)))
-export const Int16ArraySchema = v.transform(IntegerSchema, (input) => Int16Array.from(passToArray(input, INT16_MIN, INT16_MAX)))
-export const Int32ArraySchema = v.transform(IntegerSchema, (input) => Int32Array.from(passToArray(input, INT32_MIN, INT32_MAX)))
+export const Int8ArraySchema = v.transform(IntegerSchema, (input: number) => Int8Array.from(passToArray(input, INT8_MIN, INT8_MAX)))
+export const Int16ArraySchema = v.transform(IntegerSchema, (input: number) => Int16Array.from(passToArray(input, INT16_MIN, INT16_MAX)))
+export const Int32ArraySchema = v.transform(IntegerSchema, (input: number) => Int32Array.from(passToArray(input, INT32_MIN, INT32_MAX)))
 
-export const Uint8ArraySchema = v.transform(IntegerSchema, (input) => Uint8Array.from(passToArray(input, UINT_MIN, UINT8_MAX)))
-export const Uint16ArraySchema = v.transform(IntegerSchema, (input) => Uint16Array.from(passToArray(input, UINT_MIN, UINT16_MAX)))
-export const Uint32ArraySchema = v.transform(IntegerSchema, (input) => Uint32Array.from(passToArray(input, UINT_MIN, UINT32_MAX)))
+export const Uint8ArraySchema = v.transform(IntegerSchema, (input: number) => Uint8Array.from(passToArray(input, UINT_MIN, UINT8_MAX)))
+export const Uint16ArraySchema = v.transform(IntegerSchema, (input: number) => Uint16Array.from(passToArray(input, UINT_MIN, UINT16_MAX)))
+export const Uint32ArraySchema = v.transform(IntegerSchema, (input: number) => Uint32Array.from(passToArray(input, UINT_MIN, UINT32_MAX)))
 
-export const Float32ArraySchema = v.transform(v.number(), (input) => Float32Array.from(passToArray(input, FLOAT32_MIN, FLOAT32_MAX)))
-export const Float64ArraySchema = v.transform(v.number(), (input) => Float64Array.from(passToArray(input, FLOAT64_MIN, FLOAT64_MAX)))
+export const Float32ArraySchema = v.transform(v.number(), (input: number) => Float32Array.from(passToArray(input, FLOAT32_MIN, FLOAT32_MAX)))
+export const Float64ArraySchema = v.transform(v.number(), (input: number) => Float64Array.from(passToArray(input, FLOAT64_MIN, FLOAT64_MAX)))
