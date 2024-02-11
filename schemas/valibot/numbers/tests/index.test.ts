@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 import { describe, test, expect } from 'vitest'
-import { BigUintSchema, FLOAT32_MAX, FLOAT32_MIN, Float32Schema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16Schema, Int32ArraySchema, Int32Schema, Int8ArraySchema, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16Schema, Uint32ArraySchema, Uint32Schema, Uint8ArraySchema, Uint8Schema, passToArray } from '../src'
+import { BigUintSchema, FLOAT32_MAX, FLOAT32_MIN, Float32Schema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16ArrayTransform, Int16Schema, Int32ArraySchema, Int32ArrayTransform, Int32Schema, Int8ArraySchema, Int8ArrayTransform, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16ArrayTransform, Uint16Schema, Uint32ArraySchema, Uint32ArrayTransform, Uint32Schema, Uint8ArraySchema, Uint8ArrayTransform, Uint8Schema, passToArray } from '../src'
 
 describe('Unsigned Integers', () => {
   test('Uint8', () => {
@@ -201,52 +201,70 @@ describe('passToArray', () => {
 describe('Typed Array', () => {
   test('Uint8Array', () => {
     let input = UINT8_MAX * 3 + 34
-    let output = v.parse(Uint8ArraySchema, input)
+    let output = v.parse(Uint8ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Uint8ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Uint8ArraySchema, [0, 1, 2, 3]).success).toBeFalsy()
   })
 
   test('Uint16Array', () => {
     let input = UINT16_MAX * 3 + 34
-    let output = v.parse(Uint16ArraySchema, input)
+    let output = v.parse(Uint16ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Uint16ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Uint16ArraySchema, [0, 1, 2, 3]).success).toBeFalsy()
   })
 
   test('Uint32Array', () => {
     let input = UINT32_MAX * 3 + 34
-    let output = v.parse(Uint32ArraySchema, input)
+    let output = v.parse(Uint32ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Uint32ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Uint32ArraySchema, [0, 1, 2, 3]).success).toBeFalsy()
   })
 
   test('Int8Array', () => {
     // Positive
     let input = INT8_MAX * 3 + 34
-    let output = v.parse(Int8ArraySchema, input)
+    let output = v.parse(Int8ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Int8ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int8ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
     // Negative
     input = INT8_MIN * 2 - 34
-    output = v.parse(Int8ArraySchema, input)
+    output = v.parse(Int8ArrayTransform, input)
     expect(output).toHaveLength(3)
+    expect(v.safeParse(Int8ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int8ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
   })
 
   test('Int16Array', () => {
     // Positive
     let input = INT16_MAX * 3 + 34
-    let output = v.parse(Int16ArraySchema, input)
+    let output = v.parse(Int16ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Int16ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int16ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
     // Negative
     input = INT16_MIN * 2 - 34
-    output = v.parse(Int16ArraySchema, input)
+    output = v.parse(Int16ArrayTransform, input)
     expect(output).toHaveLength(3)
+    expect(v.safeParse(Int16ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int16ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
   })
 
   test('Int32Array', () => {
     // Positive
     let input = INT32_MAX * 3 + 34
-    let output = v.parse(Int32ArraySchema, input)
+    let output = v.parse(Int32ArrayTransform, input)
     expect(output).toHaveLength(4)
+    expect(v.safeParse(Int32ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int32ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
     // Negative
     input = INT32_MIN * 2 - 34
-    output = v.parse(Int32ArraySchema, input)
+    output = v.parse(Int32ArrayTransform, input)
     expect(output).toHaveLength(3)
+    expect(v.safeParse(Int32ArraySchema, output).success).toBeTruthy()
+    expect(v.safeParse(Int32ArraySchema, [-3, -2, -1, 0, 1, 2, 3]).success).toBeFalsy()
   })
 })

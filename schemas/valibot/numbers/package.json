@@ -1,10 +1,10 @@
 {
-  "name": "schemasjs",
+  "name": "@schemasjs/valibot-numbers",
   "version": "1.0.0",
-  "description": "Javascript (and Typescript) schemas to guarantee runtime type checking",
+  "description": "Javascript (and Typescript) valibot schemas to guarantee runtime type checking",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
-  "homepage": "https://github.com/crisconru/schemasjs#readme",
+  "homepage": "https://github.com/crisconru/schemasjs/schemas/valibot/numbers/#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crisconru/schemasjs.git"
@@ -14,6 +14,7 @@
   },
   "keywords": [
     "schemas",
+    "valibot",
     "types",
     "uint",
     "int",
@@ -23,14 +24,14 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "build": "tsc"
   },
   "dependencies": {
-    "valibot": "^0.27.1"
+    "valibot": "^0.28.1"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^1.2.2",
-    "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }
 }
