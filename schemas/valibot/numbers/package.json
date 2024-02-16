@@ -21,7 +21,7 @@
     "float",
     "c-types"
   ],
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest --coverage",
