@@ -1,10 +1,10 @@
 {
   "name": "@schemasjs/valibot-numbers",
-  "version": "1.0.0",
-  "description": "Javascript (and Typescript) valibot schemas to guarantee runtime type checking",
+  "version": "0.0.1",
+  "description": "Javascript (and Typescript) valibot number schemas",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
-  "homepage": "https://github.com/crisconru/schemasjs/schemas/valibot/numbers/#readme",
+  "homepage": "https://github.com/crisconru/schemasjs/tree/master/schemas/valibot/numbers/readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crisconru/schemasjs.git"
