@@ -12,6 +12,8 @@ jobs:
   test:
     name: 🧪 Test
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./schemas/valibot/numbers
 
     strategy:
       matrix:
@@ -19,48 +21,50 @@ jobs:
 
     steps:
       - name: 👍 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ❇️ Setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
       - name: 📥 Install Dependencies
         run: npm install
-        working-directory: ./schemas/valibot/numbers
+        working-directory: ${{ env.working-directory }}
 
       - name: 🧑‍🔬 Tests
         run: npm run test
-        working-directory: ./schemas/valibot/numbers
+        working-directory: ${{ env.working-directory }}
 
   publish:
     name: 🚀 Publish
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./schemas/valibot/numbers
     needs: test
     if: github.ref == 'refs/heads/main'
 
     steps:
       - name: 👍 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ❇️ Setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
 
       - name: 📥 Install Dependencies
         run: npm install
-        working-directory: ./schemas/valibot/numbers
+        working-directory: ${{ env.working-directory }}
 
       - name: 🛠️ Build
         run: npm run build
-        working-directory: ./schemas/valibot/numbers
+        working-directory: ${{ env.working-directory }}
 
       - name: 🚀 Publish to npm
         run: npm publish --access public
-        working-directory: ./schemas/valibot/numbers
+        working-directory: ${{ env.working-directory }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
