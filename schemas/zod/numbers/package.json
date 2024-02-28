@@ -1,0 +1,51 @@
+{
+  "name": "@schemasjs/zod-numbers",
+  "version": "0.0.1",
+  "description": "Javascript (and Typescript) zod number schemas",
+  "author": "Cristobal Contreras Rubio",
+  "license": "MIT",
+  "homepage": "https://github.com/crisconru/schemasjs/tree/master/schemas/zod/numbers/readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisconru/schemasjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crisconru/schemasjs/issues"
+  },
+  "keywords": [
+    "uint",
+    "int",
+    "float",
+    "c-types",
+    "zod",
+    "types",
+    "schemas",
+    "modular",
+    "typescript",
+    "schema",
+    "validation",
+    "parsing",
+    "type-safe",
+    "runtime"
+  ],
+  "type": "module",
+  "files": ["lib"],
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.3.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  }
+}
