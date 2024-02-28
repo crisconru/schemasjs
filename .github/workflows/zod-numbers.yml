@@ -1,0 +1,72 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: zod-numbers
+
+on:
+  push:
+    paths:
+      - schemas/zod/numbers/**
+
+jobs:
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./schemas/zod/numbers
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: 👍 Checkout
+        uses: actions/checkout@v4
+
+      - name: ❇️ Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.working-directory }}
+
+      - name: 📥 Install Dependencies
+        run: npm install
+        working-directory: ${{ env.working-directory }}
+
+      - name: 🧑‍🔬 Tests
+        run: npm run test
+        working-directory: ${{ env.working-directory }}
+
+  publish:
+    name: 🚀 Publish
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./schemas/zod/numbers
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: 👍 Checkout
+        uses: actions/checkout@v4
+
+      - name: ❇️ Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: "https://registry.npmjs.org"
+          cache-dependency-path: ${{ env.working-directory }}
+
+      - name: 📥 Install Dependencies
+        run: npm install
+        working-directory: ${{ env.working-directory }}
+
+      - name: 🛠️ Build
+        run: npm run build
+        working-directory: ${{ env.working-directory }}
+
+      - name: 🚀 Publish to npm
+        run: npm publish --access public
+        working-directory: ${{ env.working-directory }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
