@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/valibot-numbers",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Javascript (and Typescript) valibot number schemas",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
