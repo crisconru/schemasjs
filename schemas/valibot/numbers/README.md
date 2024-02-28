@@ -1,5 +1,7 @@
 # @SchemasJS/valibot-numbers
 
+[![build](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml)
+
 Valibot schemas for numbers and their types.
 
 ## Numbers
