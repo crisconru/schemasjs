@@ -4,6 +4,7 @@
 name: valibot-numbers
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - schemas/valibot/numbers/**
@@ -12,8 +13,6 @@ jobs:
   test:
     name: 🧪 Test
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./schemas/valibot/numbers
 
     strategy:
       matrix:
@@ -28,21 +27,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: ${{ env.working-directory }}
 
       - name: 📥 Install Dependencies
         run: npm install
-        working-directory: ${{ env.working-directory }}
 
       - name: 🧑‍🔬 Tests
-        run: npm run test
-        working-directory: ${{ env.working-directory }}
+        run: "npm run test:valibot-numbers"
 
   publish:
     name: 🚀 Publish
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./schemas/valibot/numbers
     needs: test
     if: github.ref == 'refs/heads/main'
 
@@ -55,18 +49,14 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
-          cache-dependency-path: ${{ env.working-directory }}
 
       - name: 📥 Install Dependencies
         run: npm install
-        working-directory: ${{ env.working-directory }}
 
       - name: 🛠️ Build
-        run: npm run build
-        working-directory: ${{ env.working-directory }}
+        run: "npm run build:valibot-numbers"
 
       - name: 🚀 Publish to npm
-        run: npm publish --access public
-        working-directory: ${{ env.working-directory }}
+        run: "npm publish --access public --workspace=@schemasjs/valibot-numbers"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
