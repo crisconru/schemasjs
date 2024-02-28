@@ -4,6 +4,7 @@
 name: valibot-numbers
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - schemas/valibot/numbers/**
