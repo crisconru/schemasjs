@@ -6,3 +6,5 @@ Schemas:
 
 - Valibot
     - [numbers](./schemas/valibot/numbers/README.md)
+- Zod
+    - [numbers](./schemas/zod/numbers/README.md)
