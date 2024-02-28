@@ -4,7 +4,11 @@ export default defineConfig({
   test: {
     // ... Specify options here.
     coverage: {
-      exclude: ['**/*/constants.ts', '**/*/types.ts']
+      exclude: [
+        '**/*/constants.ts',
+        '**/*/types.ts',
+        'lib/*'
+      ]
     }
   },
 })
