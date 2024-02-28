@@ -12,9 +12,6 @@ jobs:
   test:
     name: 🧪 Test
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: ./schemas/valibot/numbers
     env:
       working-directory: ./schemas/valibot/numbers
 
@@ -44,9 +41,6 @@ jobs:
   publish:
     name: 🚀 Publish
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: ./schemas/valibot/numbers
     env:
       working-directory: ./schemas/valibot/numbers
     needs: test
