@@ -29,9 +29,11 @@ jobs:
 
       - name: 📥 Install Dependencies
         run: npm install
+        working-directory: ./schemas/valibot/numbers
 
       - name: 🧑‍🔬 Tests
         run: npm run test
+        working-directory: ./schemas/valibot/numbers
 
   publish:
     name: 🚀 Publish
@@ -51,11 +53,14 @@ jobs:
 
       - name: 📥 Install Dependencies
         run: npm install
+        working-directory: ./schemas/valibot/numbers
 
       - name: 🛠️ Build
         run: npm run build
+        working-directory: ./schemas/valibot/numbers
 
       - name: 🚀 Publish to npm
         run: npm publish --access public
+        working-directory: ./schemas/valibot/numbers
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
