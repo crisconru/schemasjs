@@ -13,8 +13,6 @@ jobs:
   test:
     name: 🧪 Test
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./schemas/valibot/numbers
 
     strategy:
       matrix:
@@ -39,8 +37,6 @@ jobs:
   publish:
     name: 🚀 Publish
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./schemas/valibot/numbers
     needs: test
     if: github.ref == 'refs/heads/main'
 
