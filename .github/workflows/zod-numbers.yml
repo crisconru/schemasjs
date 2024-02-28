@@ -32,7 +32,7 @@ jobs:
         run: npm install
 
       - name: 🧑‍🔬 Tests
-        run: "npm run test:@schemasjs/zod-numbers"
+        run: "npm run test:zod-numbers"
 
   publish:
     name: 🚀 Publish
@@ -54,7 +54,7 @@ jobs:
         run: npm install
 
       - name: 🛠️ Build
-        run: npm run build:valibot-numbers
+        run: npm run build:zod-numbers
 
       - name: 🚀 Publish to npm
         run: "npm publish --access public --workspace=@schemasjs/zod-numbers"
