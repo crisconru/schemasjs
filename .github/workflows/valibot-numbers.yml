@@ -12,11 +12,11 @@ jobs:
   test:
     name: 🧪 Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./schemas/valibot/numbers
-    # env:
-      # working-directory: ./schemas/valibot/numbers
+    # defaults:
+    #   run:
+    #     working-directory: ./schemas/valibot/numbers
+    env:
+      working-directory: ./schemas/valibot/numbers
 
     strategy:
       matrix:
@@ -31,23 +31,24 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: ${{ env.working-directory }}
 
       - name: 📥 Install Dependencies
         run: npm install
-        # working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
 
       - name: 🧑‍🔬 Tests
         run: npm run test
-        # working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
 
   publish:
     name: 🚀 Publish
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./schemas/valibot/numbers
-    # env:
-      # working-directory: ./schemas/valibot/numbers
+    # defaults:
+    #   run:
+    #     working-directory: ./schemas/valibot/numbers
+    env:
+      working-directory: ./schemas/valibot/numbers
     needs: test
     if: github.ref == 'refs/heads/main'
 
@@ -60,17 +61,18 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
+          cache-dependency-path: ${{ env.working-directory }}
 
       - name: 📥 Install Dependencies
         run: npm install
-        # working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
 
       - name: 🛠️ Build
         run: npm run build
-        # working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
 
       - name: 🚀 Publish to npm
         run: npm publish --access public
-        # working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
