@@ -1,0 +1,29 @@
+{
+  "name": "schemasjs",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Cristóbal Contreras Rubio",
+  "description": "Collection of schemas for validators like valibot, zod, etc",
+  "license": "MIT",
+  "homepage": "https://github.com/crisconru/schemasjs#readme",
+  "bugs": {
+    "url": "https://github.com/crisconru/schemasjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisconru/schemasjs.git"
+  },
+  "keywords": [
+    "schemas",
+    "typescript",
+    "zod",
+    "valibot",
+    "type-validation",
+    "validator"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
