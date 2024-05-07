@@ -28,16 +28,16 @@
     "schemas/zod/*"
   ],
   "scripts": {
-    "valibot-numbers:build": "npm run build --workspace=@schemasjs/valibot-numbers",
-    "valibot-numbers:lint": "npm run lint --workspace=@schemasjs/valibot-numbers",
-    "valibot-numbers:format": "npm run format --workspace=@schemasjs/valibot-numbers",
-    "valibot-numbers:test": "npm run test --workspace=@schemasjs/valibot-numbers",
-    "valibot-numbers:test:coverage": "npm run test:coverage --workspace=@schemasjs/valibot-numbers",
-    "zod-numbers:build": "npm run build --workspace=@schemasjs/zod-numbers",
-    "zod-numbers:lint": "npm run lint --workspace=@schemasjs/zod-numbers",
-    "zod-numbers:format": "npm run format --workspace=@schemasjs/zod-numbers",
-    "zod-numbers:test": "npm run test --workspace=@schemasjs/zod-numbers",
-    "zod-numbers:test:coverage": "npm run test:coverage --workspace=@schemasjs/zod-numbers"
+    "valibot:numbers:build": "npm run build --workspace=@schemasjs/valibot-numbers",
+    "valibot:numbers:lint": "npm run lint --workspace=@schemasjs/valibot-numbers",
+    "valibot:numbers:format": "npm run format --workspace=@schemasjs/valibot-numbers",
+    "valibot:numbers:test": "npm run test --workspace=@schemasjs/valibot-numbers",
+    "valibot:numbers:test:coverage": "npm run test:coverage --workspace=@schemasjs/valibot-numbers",
+    "zod:numbers:build": "npm run build --workspace=@schemasjs/zod-numbers",
+    "zod:numbers:lint": "npm run lint --workspace=@schemasjs/zod-numbers",
+    "zod:numbers:format": "npm run format --workspace=@schemasjs/zod-numbers",
+    "zod:numbers:test": "npm run test --workspace=@schemasjs/zod-numbers",
+    "zod:numbers:test:coverage": "npm run test:coverage --workspace=@schemasjs/zod-numbers"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^1.3.1",
