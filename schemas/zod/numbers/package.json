@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/zod-numbers",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Javascript (and Typescript) zod number schemas",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
@@ -29,18 +29,47 @@
     "runtime"
   ],
   "type": "module",
-  "files": ["lib"],
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "build": "tsup",
+    "lint": "ts-standard",
+    "format": "ts-standard --fix",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "build": "tsc"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "zod": "^3.22.4"
+  },
+  "ts-standard": {
+    "ignore": [
+      "tests",
+      "vitest.config.ts",
+      "tsup.config.ts"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
   }
 }
