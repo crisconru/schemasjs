@@ -32,7 +32,7 @@ jobs:
         run: npm install
 
       - name: 🧑‍🔬 Tests
-        run: "npm run test:valibot-numbers"
+        run: "npm run valibot:numbers:test"
 
   publish:
     name: 🚀 Publish
@@ -47,14 +47,14 @@ jobs:
       - name: ❇️ Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           registry-url: "https://registry.npmjs.org"
 
       - name: 📥 Install Dependencies
         run: npm install
 
       - name: 🛠️ Build
-        run: "npm run build:valibot-numbers"
+        run: "npm run valibot:numbers:build"
 
       - name: 🚀 Publish to npm
         run: "npm publish --access public --workspace=@schemasjs/valibot-numbers"

@@ -70,7 +70,6 @@ export const Int16Schema = v.number(
 )
 export type Int16 = v.Input<typeof Int16Schema>
 
-
 export const INT32_MIN = -Math.pow(2, 32)
 export const INT32_MAX = -INT32_MIN - 1
 export const Int32Schema = v.number(
@@ -91,13 +90,14 @@ export const FLOAT32_MAX = -FLOAT32_MIN
 export const Float32Schema = v.number([v.minValue(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`), v.maxValue(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)])
 export type Float32 = v.Input<typeof Float32Schema>
 
+// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
 export const FLOAT64_MIN = -1.8e308
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = v.number([v.minValue(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`), v.maxValue(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)])
 export type Float64 = v.Input<typeof Float64Schema>
 // TYPED ARRAYS
 export const passToArray = (value: number, min: number, max: number): number[] => {
-  let array: number[] = []
+  const array: number[] = []
   let num: number = value
   if (num > 0) {
     while (num > max) {
