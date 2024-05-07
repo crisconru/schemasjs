@@ -57,7 +57,7 @@ export const Float32Schema = NumberSchema
   .min(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`)
   .max(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
 export type Float32 = z.infer<typeof Float32Schema>
-
+// eslint-disable-next-line
 export const FLOAT64_MIN = -1.8e308
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = NumberSchema
@@ -67,7 +67,7 @@ export type Float64 = z.infer<typeof Float64Schema>
 
 // TYPED ARRAYS
 export const passToArray = (value: number, min: number, max: number): number[] => {
-  let array: number[] = []
+  const array: number[] = []
   let num: number = value
   if (num > 0) {
     while (num > max) {

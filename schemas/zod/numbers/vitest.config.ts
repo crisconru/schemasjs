@@ -7,8 +7,9 @@ export default defineConfig({
       exclude: [
         '**/*/constants.ts',
         '**/*/types.ts',
-        'lib/*'
+        'lib/**/*',
+        'dist/**/*'
       ]
     }
-  },
+  }
 })
