@@ -82,8 +82,8 @@ export const Float32Schema = v.pipe(
 )
 export type Float32 = v.InferInput<typeof Float32Schema>
 
-// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-export const FLOAT64_MIN = -1.8e308
+// export const FLOAT64_MIN = -1.8e307
+export const FLOAT64_MIN = -1 * Number.MAX_VALUE
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = v.pipe(
   v.number(),
