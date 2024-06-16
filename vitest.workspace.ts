@@ -2,5 +2,6 @@ import { defineWorkspace } from 'vitest/config'
 
 export default defineWorkspace([
   'schemas/valibot/*',
-  'schemas/zod/*'
+  'schemas/zod/*',
+  'validator'
 ])
