@@ -1,0 +1,74 @@
+{
+  "name": "@schemasjs/validator",
+  "version": "1.0.0",
+  "description": "An opinionated type validator API indpendent from schema validators like Zod, Valibot, etc",
+  "author": "Cristobal Contreras Rubio",
+  "license": "MIT",
+  "homepage": "https://github.com/crisconru/schemasjs/tree/master/validator/readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisconru/schemasjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crisconru/schemasjs/issues"
+  },
+  "keywords": [
+    "types",
+    "schemas",
+    "valibot",
+    "zod",
+    "typescript",
+    "validation",
+    "type validation",
+    "type-safe"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "ts-standard",
+    "format": "ts-standard --fix",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "optionalDependencies": {
+    "valibot": "^0.32.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@schemasjs/valibot-numbers": "^1.0.11",
+    "@schemasjs/zod-numbers": "^1.0.4"
+  },
+  "ts-standard": {
+    "ignore": [
+      "tests",
+      "vitest.config.ts",
+      "tsup.config.ts"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  }
+}
