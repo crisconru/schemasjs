@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/zod-numbers",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Javascript (and Typescript) zod number schemas",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",

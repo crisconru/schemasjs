@@ -1,6 +1,6 @@
 # @SchemasJS/zod-numbers
 
-[![build](https://github.com/crisconru/schemasjs/actions/workflows/zod-numbers.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/zod-numbers.yml)
+[![version](https://img.shields.io/npm/v/%40schemasjs%2Fzod-numbers)](https://img.shields.io/npm/v/%40schemasjs%2Fzod-numbers) [![Bundle size minified](https://img.shields.io/bundlephobia/min/%40schemasjs/zod-numbers/latest)](https://bundlephobia.com/package/@schemasjs/zod-numbers) [![build](https://github.com/crisconru/schemasjs/actions/workflows/zod-numbers.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/zod-numbers.yml)
 
 Zod schemas for numbers and their types.
 
