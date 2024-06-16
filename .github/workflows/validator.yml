@@ -53,6 +53,9 @@ jobs:
       - name: 📥 Install Dependencies
         run: npm install
 
+      - name: 🛠️ Build monorepo deps
+        run: npm run valibot:numbers:build && npm run zod:numbers:build
+
       - name: 🛠️ Build
         run: npm run validator:build
 
