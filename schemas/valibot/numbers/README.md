@@ -1,6 +1,8 @@
 # @SchemasJS/valibot-numbers
 
-[![build](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml)
+[![version](https://img.shields.io/npm/v/%40schemasjs%2Fvalibot-numbers
+)](https://www.npmjs.com/package/@schemasjs/valibot-numbers) [![Bundle size minified](https://img.shields.io/bundlephobia/min/%40schemasjs/valibot-numbers/latest
+)](https://bundlephobia.com/package/@schemasjs/valibot-numbers) [![build](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/valibot-numbers.yml)
 
 Valibot schemas for numbers and their types.
 
