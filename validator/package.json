@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An opinionated type validator API indpendent from schema validators like Zod, Valibot, etc",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
@@ -52,7 +52,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "optionalDependencies": {
-    "valibot": "^0.32.0",
+    "valibot": ">0.31.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

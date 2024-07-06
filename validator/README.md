@@ -1,11 +1,6 @@
 # @SchemasJS/validator
 
-[![version](https://img.shields.io/npm/v/%40schemasjs%2Fvalidator)](https://img.shields.io/npm/v/%40schemasjs%2Fvalidator)
-
-[![Bundle size minified](https://img.shields.io/bundlephobia/min/%40schemasjs/validator/latest
-)](https://bundlephobia.com/package/@schemasjs/validator)
-
-[![build](https://github.com/crisconru/schemasjs/actions/workflows/validator.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/validator.yml)
+[![version](https://img.shields.io/npm/v/%40schemasjs%2Fvalidator)](https://img.shields.io/npm/v/%40schemasjs%2Fvalidator) [![Bundle size minified](https://img.shields.io/bundlephobia/min/%40schemasjs/validator/latest)](https://bundlephobia.com/package/@schemasjs/validator) [![build](https://github.com/crisconru/schemasjs/actions/workflows/validator.yml/badge.svg)](https://github.com/crisconru/schemasjs/actions/workflows/validator.yml)
 
 If you love type validators like Zod or Valibot, probably you load a ton of logic
 inside schemas. If suddenly you wanted to swap from one type validator to another,
