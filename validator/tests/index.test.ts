@@ -21,7 +21,9 @@ describe('Valibot', () => {
   test('safeParse', () => {
     const good = Uint8Schema.safeParse(8)
     expect(good.success).toBeTruthy()
-    expect(good.data).toBe(8)
+    if (good.success) {
+      expect(good.data).toBe(8)
+    }
     const bad = Uint8Schema.safeParse(-8)
     const valibotBad = v.safeParse(Uint8ValibotSchema, -8)
     expect(bad.success).toBeFalsy()
@@ -47,7 +49,9 @@ describe('Zod', () => {
   test('safeParse', () => {
     const good = Uint8Schema.safeParse(8)
     expect(good.success).toBeTruthy()
-    expect(good.data).toBe(8)
+    if (good.success) {
+      expect(good.data).toBe(8)
+    }
     const bad = Uint8Schema.safeParse(-8)
     const zodBad = Uint8ZodSchema.safeParse(-8)
     expect(bad.success).toBeFalsy()

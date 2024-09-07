@@ -1,11 +1,17 @@
 import * as v from 'valibot'
 import { z } from 'zod'
 
-export interface SafeParse<T> {
-  success: boolean
-  data?: T
-  errors?: string[]
+interface SafeParseSuccess<T> {
+  success: true
+  data: T
 }
+
+interface SafeParseFailure {
+  success: false
+  errors: string[]
+}
+
+export type SafeParse<T> = SafeParseSuccess<T> | SafeParseFailure
 
 export interface Schema<T> {
   is: (data: any) => boolean
