@@ -32,14 +32,14 @@ export const Int8Schema = IntegerSchema
   .max(INT8_MAX, `It should be less than ${INT8_MAX + 1}`)
 export type Int8 = z.infer<typeof Int8Schema>
 
-export const INT16_MIN = -Math.pow(2, 16)
+export const INT16_MIN = -Math.pow(2, 15)
 export const INT16_MAX = -INT16_MIN - 1
 export const Int16Schema = IntegerSchema
   .min(INT16_MIN, `It should be greater than ${INT16_MIN - 1}`)
   .max(INT16_MAX, `It should be less than ${INT16_MAX + 1}`)
 export type Int16 = z.infer<typeof Int16Schema>
 
-export const INT32_MIN = -Math.pow(2, 32)
+export const INT32_MIN = -Math.pow(2, 31)
 export const INT32_MAX = -INT32_MIN - 1
 export const Int32Schema = IntegerSchema
   .min(INT32_MIN, `It should be greater than ${INT32_MIN - 1}`)
@@ -54,15 +54,17 @@ export const NumberSchema = z.number()
 export const FLOAT32_MIN = -3.4e38
 export const FLOAT32_MAX = -FLOAT32_MIN
 export const Float32Schema = NumberSchema
-  .min(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`)
-  .max(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
+  .refine(num => Float32Array.from([num]).at(0) === num, { message: 'Invalid number, it is not a Float32 number' })
+  // .min(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`)
+  // .max(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
 export type Float32 = z.infer<typeof Float32Schema>
 // eslint-disable-next-line
 export const FLOAT64_MIN = -1.8e308
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = NumberSchema
-  .min(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`)
-  .max(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
+  .refine(num => Float64Array.from([num]).at(0) === num, { message: 'Invalid number, it is not a Float64 number' })
+  // .min(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`)
+  // .max(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
 export type Float64 = z.infer<typeof Float64Schema>
 
 // TYPED ARRAYS

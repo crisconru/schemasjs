@@ -126,13 +126,15 @@ describe('Floats', () => {
     result = v.safeParse(Float32Schema, value)
     expect(result.success).toBeFalsy()
     if(result.issues)
-      expect(result.issues[0].message).toBe(`It should be greater than or equal to ${FLOAT32_MIN}`)
+      // expect(result.issues[0].message).toBe(`It should be greater than or equal to ${FLOAT32_MIN}`)
+      expect(result.issues[0].message).toBe('Invalid number, it is not a Float32 number')
     // More than max
     value = FLOAT32_MAX + 1.1e38
     result = v.safeParse(Float32Schema, value)
     expect(result.success).toBeFalsy()
     if(result.issues)
-      expect(result.issues[0].message).toBe(`It should be less than or equal to ${FLOAT32_MAX}`)
+      expect(result.issues[0].message).toBe('Invalid number, it is not a Float32 number')
+      // expect(result.issues[0].message).toBe(`It should be less than or equal to ${FLOAT32_MAX}`)
   })
 })
 
