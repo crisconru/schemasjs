@@ -54,7 +54,7 @@ export const NumberSchema = z.number()
 export const FLOAT32_MIN = -3.4e38
 export const FLOAT32_MAX = -FLOAT32_MIN
 export const Float32Schema = NumberSchema
-  .refine(num => Float32Array.from([num]).at(0) === num, { message: 'Invalid number, it is not a Float32 number' })
+  .refine((num: number) => Math.abs(Float32Array.from([num])[0] - num) < Number.EPSILON, { message: 'Invalid number, it is not a Float32 number' })
   // .min(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`)
   // .max(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
 export type Float32 = z.infer<typeof Float32Schema>
@@ -62,7 +62,7 @@ export type Float32 = z.infer<typeof Float32Schema>
 export const FLOAT64_MIN = -1.8e308
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = NumberSchema
-  .refine(num => Float64Array.from([num]).at(0) === num, { message: 'Invalid number, it is not a Float64 number' })
+  .refine((num: number) => Math.abs(Float64Array.from([num])[0] - num) < Number.EPSILON, { message: 'Invalid number, it is not a Float64 number' })
   // .min(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`)
   // .max(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
 export type Float64 = z.infer<typeof Float64Schema>

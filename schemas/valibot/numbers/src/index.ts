@@ -77,7 +77,7 @@ export const FLOAT32_MIN = -3.4e38
 export const FLOAT32_MAX = -FLOAT32_MIN
 export const Float32Schema = v.pipe(
   v.number(),
-  v.check((num: number) => Float32Array.from([num]).at(0) === num, 'Invalid number, it is not a Float32 number')
+  v.check((num: number) => Math.abs(Float32Array.from([num])[0] - num) < Number.EPSILON, 'Invalid number, it is not a Float32 number')
   // v.minValue(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`),
   // v.maxValue(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
 )
@@ -88,7 +88,7 @@ export const FLOAT64_MIN = -1 * Number.MAX_VALUE
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = v.pipe(
   v.number(),
-  v.check((num: number) => Float64Array.from([num]).at(0) === num, 'Invalid number, it is not a Float64 number')
+  v.check((num: number) => Math.abs(Float64Array.from([num])[0] - num) < Number.EPSILON, 'Invalid number, it is not a Float64 number')
 //   v.minValue(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`),
 //   v.maxValue(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
 )
