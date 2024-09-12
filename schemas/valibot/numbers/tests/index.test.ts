@@ -122,7 +122,8 @@ describe('Floats', () => {
     let value: number
     let result: ReturnType<typeof v.safeParse>
     // Less than min
-    value = FLOAT32_MIN - 1.1e38
+    // value = FLOAT32_MIN - 1.1e38
+    value = FLOAT32_MIN
     result = v.safeParse(Float32Schema, value)
     expect(result.success).toBeFalsy()
     if(result.issues)
