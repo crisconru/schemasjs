@@ -50,7 +50,7 @@ export const Int8Schema = v.pipe(
 )
 export type Int8 = v.InferInput<typeof Int8Schema>
 
-export const INT16_MIN = -Math.pow(2, 16)
+export const INT16_MIN = -Math.pow(2, 15)
 export const INT16_MAX = -INT16_MIN - 1
 export const Int16Schema = v.pipe(
   v.number('It should be a number'),
@@ -60,7 +60,7 @@ export const Int16Schema = v.pipe(
 )
 export type Int16 = v.InferInput<typeof Int16Schema>
 
-export const INT32_MIN = -Math.pow(2, 32)
+export const INT32_MIN = -Math.pow(2, 31)
 export const INT32_MAX = -INT32_MIN - 1
 export const Int32Schema = v.pipe(
   v.number('It should be a number'),
@@ -77,8 +77,9 @@ export const FLOAT32_MIN = -3.4e38
 export const FLOAT32_MAX = -FLOAT32_MIN
 export const Float32Schema = v.pipe(
   v.number(),
-  v.minValue(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`),
-  v.maxValue(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
+  v.check((num: number) => Float32Array.from([num]).at(0) === num, 'Invalid number, it is not a Float32 number')
+  // v.minValue(FLOAT32_MIN, `It should be greater than or equal to ${FLOAT32_MIN}`),
+  // v.maxValue(FLOAT32_MAX, `It should be less than or equal to ${FLOAT32_MAX}`)
 )
 export type Float32 = v.InferInput<typeof Float32Schema>
 
@@ -87,8 +88,9 @@ export const FLOAT64_MIN = -1 * Number.MAX_VALUE
 export const FLOAT64_MAX = -FLOAT64_MIN
 export const Float64Schema = v.pipe(
   v.number(),
-  v.minValue(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`),
-  v.maxValue(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
+  v.check((num: number) => Float64Array.from([num]).at(0) === num, 'Invalid number, it is not a Float64 number')
+//   v.minValue(FLOAT64_MIN, `It should be greater than or equal to ${FLOAT64_MIN}`),
+//   v.maxValue(FLOAT64_MAX, `It should be less than or equal to ${FLOAT64_MAX}`)
 )
 export type Float64 = v.InferInput<typeof Float64Schema>
 // TYPED ARRAYS
