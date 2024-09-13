@@ -8,7 +8,8 @@ export default defineConfig({
         '**/*/constants.ts',
         '**/*/types.ts',
         'lib/**/*',
-        'dist/**/*'
+        'dist/**/*',
+        '*.config.ts'
       ]
     }
   }

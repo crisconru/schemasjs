@@ -67,9 +67,15 @@ It is a tiny API based on Zod API + `is` Valibot function API.
 `safeParse` return
 
 ```typescript
-interface SafeParse<T> {
-  success: boolean
-  data?: T
-  errors?: string[]
+interface SafeParseSuccess<T> {
+  success: true
+  value: T
 }
+
+interface SafeParseFailure {
+  success: false
+  errors: string[]
+}
+
+export type SafeParse<T> = SafeParseSuccess<T> | SafeParseFailure
 ```

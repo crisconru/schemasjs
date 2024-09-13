@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/validator",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "An opinionated type validator API indpendent from schema validators like Zod, Valibot, etc",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
@@ -56,8 +56,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@schemasjs/valibot-numbers": "^1.0.11",
-    "@schemasjs/zod-numbers": "^1.0.4"
+    "@schemasjs/valibot-numbers": "^1.0.15",
+    "@schemasjs/zod-numbers": "^1.0.6"
   },
   "ts-standard": {
     "ignore": [

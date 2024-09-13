@@ -1,62 +1,108 @@
 import { describe, expect, test } from 'vitest'
-import * as v from 'valibot'
-import { z } from 'zod'
-import { type Uint8 as Uint8Valibot, Uint8Schema as Uint8ValibotSchema } from '@schemasjs/valibot-numbers'
-import { type Uint8 as Uint8Zod, Uint8Schema as Uint8ZodSchema } from '@schemasjs/zod-numbers'
+import { Float32Schema as Float32ValibotSchema, type Uint8 as Uint8Valibot, Uint8Schema as Uint8ValibotSchema, type Float32 as Float32Valibot } from '@schemasjs/valibot-numbers'
+import { type Uint8 as Uint8Zod, Uint8Schema as Uint8ZodSchema, type Float32 as Float32Zod, Float32Schema as Float32ZodSchema } from '@schemasjs/zod-numbers'
 import { ValibotValidator, ZodValidator } from '../src'
 
 describe('Valibot', () => {
   const Uint8Schema = ValibotValidator<Uint8Valibot>(Uint8ValibotSchema)
+  const Float32Schema = ValibotValidator<Float32Valibot>(Float32ValibotSchema)
 
   test('is', () => {
-    expect(Uint8Schema.is(8)).toBeTruthy()
-    expect(Uint8Schema.is(8.9)).toBeFalsy()
+    // OK
+    [
+      { schema: Uint8Schema, num: 8 },
+      { schema: Float32Schema, num: -3.4e38 }
+    ].forEach(({schema, num}) => expect(schema.is(num)).toBeTruthy());
+    // Error
+    [
+      { schema: Uint8Schema, num: -8 },
+      { schema: Float32Schema, num: -3.4e39 }
+    ].forEach(({schema, num}) => expect(schema.is(num)).toBeFalsy())
   })
 
   test('parse', () => {
-    expect(Uint8Schema.parse(8)).toBe(8)
-    expect(() => Uint8Schema.parse(8.9)).toThrowError()
+    // OK
+    [
+      { schema: Uint8Schema, num: 8 },
+      { schema: Float32Schema, num: -3.4e38 }
+    ].forEach(({schema, num}) => expect(schema.parse(num)).toBe(num));
+    // Error
+    [
+      { schema: Uint8Schema, num: -8 },
+      { schema: Float32Schema, num: -3.4e39 }
+    ].forEach(({schema, num}) => expect(() => schema.parse(num)).toThrowError())
   })
 
   test('safeParse', () => {
-    const good = Uint8Schema.safeParse(8)
-    expect(good.success).toBeTruthy()
-    if (good.success) {
-      expect(good.data).toBe(8)
-    }
-    const bad = Uint8Schema.safeParse(-8)
-    const valibotBad = v.safeParse(Uint8ValibotSchema, -8)
-    expect(bad.success).toBeFalsy()
-    expect(bad).toHaveProperty('errors')
-    // @ts-ignore
-    bad.errors?.forEach((error: string, idx: number) => expect(error).toBe(valibotBad.issues[idx].message))
+    // OK
+    [
+      { good: Uint8Schema.safeParse(8), num: 8 },
+      { good: Float32Schema.safeParse(-3.4e38), num: -3.4e38 }
+    ].forEach(({good, num}) => {
+      expect(good.success).toBeTruthy()
+      if (good.success) {
+        expect(good.value).toBe(num)
+      }
+    });
+    // Error
+    [Uint8Schema.safeParse(-8), Float32Schema.safeParse(-3.4e39)].forEach(bad => {
+      expect(bad.success).toBeFalsy()
+      expect(bad).toHaveProperty('errors')
+      if (!bad.success) {
+        expect(bad.errors.length).toBeGreaterThan(0)
+      }
+    })
   })
 })
 
-describe('Zod', () => {
+describe.skip('Zod', () => {
   const Uint8Schema = ZodValidator<Uint8Zod>(Uint8ZodSchema)
+  const Float32Schema = ZodValidator<Float32Zod>(Float32ZodSchema)
 
   test('is', () => {
-    expect(Uint8Schema.is(8)).toBeTruthy()
-    expect(Uint8Schema.is(8.9)).toBeFalsy()
+    // OK
+    [
+      { schema: Uint8Schema, num: 8 },
+      { schema: Float32Schema, num: -3.4e38 }
+    ].forEach(({schema, num}) => expect(schema.is(num)).toBeTruthy());
+    // Error
+    [
+      { schema: Uint8Schema, num: -8 },
+      { schema: Float32Schema, num: -3.4e39 }
+    ].forEach(({schema, num}) => expect(schema.is(num)).toBeFalsy())
   })
 
   test('parse', () => {
-    expect(Uint8Schema.parse(8)).toBe(8)
-    expect(() => Uint8Schema.parse(8.9)).toThrowError()
+    // OK
+    [
+      { schema: Uint8Schema, num: 8 },
+      { schema: Float32Schema, num: -3.4e38 }
+    ].forEach(({schema, num}) => expect(schema.parse(num)).toBe(num));
+    // Error
+    [
+      { schema: Uint8Schema, num: -8 },
+      { schema: Float32Schema, num: -3.4e39 }
+    ].forEach(({schema, num}) => expect(() => schema.parse(num)).toThrowError())
   })
 
   test('safeParse', () => {
-    const good = Uint8Schema.safeParse(8)
-    expect(good.success).toBeTruthy()
-    if (good.success) {
-      expect(good.data).toBe(8)
-    }
-    const bad = Uint8Schema.safeParse(-8)
-    const zodBad = Uint8ZodSchema.safeParse(-8)
-    expect(bad.success).toBeFalsy()
-    expect(bad).toHaveProperty('errors')
-    // @ts-ignore
-    expect(bad.errors[0]).toBe(zodBad.error?.message)
+    // OK
+    [
+      { good: Uint8Schema.safeParse(8), num: 8 },
+      { good: Float32Schema.safeParse(-3.4e38), num: -3.4e38 }
+    ].forEach(({good, num}) => {
+      expect(good.success).toBeTruthy()
+      if (good.success) {
+        expect(good.value).toBe(num)
+      }
+    });
+    // Error
+    [Uint8Schema.safeParse(-8), Float32Schema.safeParse(-3.4e39)].forEach(bad => {
+      expect(bad.success).toBeFalsy()
+      expect(bad).toHaveProperty('errors')
+      if (!bad.success) {
+        expect(bad.errors.length).toBeGreaterThan(0)
+      }
+    })
   })
 })

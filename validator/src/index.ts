@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 interface SafeParseSuccess<T> {
   success: true
-  data: T
+  value: T
 }
 
 interface SafeParseFailure {
@@ -24,7 +24,7 @@ export const ZodValidator = <T>(schema: z.ZodSchema): Schema<T> => ({
   parse: (data: any) => schema.parse(data),
   safeParse: (data: any) => {
     const parsed = schema.safeParse(data)
-    if (parsed.success) return { success: parsed.success, data: parsed.data }
+    if (parsed.success) return { success: parsed.success, value: parsed.data }
     return { success: parsed.success, errors: [parsed.error.message] }
   }
 })
@@ -35,7 +35,7 @@ export const ValibotValidator = <T>(schema: v.BaseSchema): Schema<T> => ({
   parse: (data: any) => v.parse(schema, data),
   safeParse: (data: any) => {
     const parsed = v.safeParse(schema, data)
-    if (parsed.success) return { success: parsed.success, data: parsed.output }
+    if (parsed.success) return { success: parsed.success, value: parsed.output }
     return { success: parsed.success, errors: parsed.issues.map(issue => issue.message) }
   }
 })

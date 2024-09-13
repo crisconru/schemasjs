@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 import { describe, test, expect } from 'vitest'
-import { BigUintSchema, FLOAT32_MAX, FLOAT32_MIN, Float32Schema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16ArrayTransform, Int16Schema, Int32ArraySchema, Int32ArrayTransform, Int32Schema, Int8ArraySchema, Int8ArrayTransform, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16ArrayTransform, Uint16Schema, Uint32ArraySchema, Uint32ArrayTransform, Uint32Schema, Uint8ArraySchema, Uint8ArrayTransform, Uint8Schema, passToArray } from '../src'
+import { BigUintSchema, FLOAT32_MAX, FLOAT32_MIN, Float32Schema, Float64Schema, INT16_MAX, INT16_MIN, INT32_MAX, INT32_MIN, INT8_MAX, INT8_MIN, Int16ArraySchema, Int16ArrayTransform, Int16Schema, Int32ArraySchema, Int32ArrayTransform, Int32Schema, Int8ArraySchema, Int8ArrayTransform, Int8Schema, UINT16_MAX, UINT32_MAX, UINT8_MAX, UINT_MIN, Uint16ArraySchema, Uint16ArrayTransform, Uint16Schema, Uint32ArraySchema, Uint32ArrayTransform, Uint32Schema, Uint8ArraySchema, Uint8ArrayTransform, Uint8Schema, passToArray } from '../src'
 
 describe('Unsigned Integers', () => {
   test('Uint8', () => {
@@ -119,23 +119,36 @@ describe('Integers', () => {
 
 describe('Floats', () => {
   test('Float32', () => {
-    let value: number
+    // Error
+    [FLOAT32_MIN - 1.1e38, FLOAT32_MAX + 1.1e38]
+      .forEach(value => {
+        const result = v.safeParse(Float32Schema, value)
+        expect(result.success).toBeFalsy()
+        if(result.issues)
+          // expect(result.issues[0].message).toBe(`It should be greater than or equal to ${FLOAT32_MIN}`)
+          expect(result.issues[0].message).toBe('Invalid number, it is not a Float32 number')
+      });
+    // OK
+    [FLOAT32_MIN, FLOAT32_MAX]
+    .forEach(value => {
+      const result = v.safeParse(Float32Schema, value)
+      expect(result.success).toBeTruthy()
+      if(result.success)
+        // expect(result).toHaveProperty('output')
+        expect(result.output).toBeTypeOf('number')
+    })
+  })
+
+  test('Float64', () => {
     let result: ReturnType<typeof v.safeParse>
-    // Less than min
-    // value = FLOAT32_MIN - 1.1e38
-    value = FLOAT32_MIN
-    result = v.safeParse(Float32Schema, value)
-    expect(result.success).toBeFalsy()
-    if(result.issues)
-      // expect(result.issues[0].message).toBe(`It should be greater than or equal to ${FLOAT32_MIN}`)
-      expect(result.issues[0].message).toBe('Invalid number, it is not a Float32 number')
-    // More than max
-    value = FLOAT32_MAX + 1.1e38
-    result = v.safeParse(Float32Schema, value)
-    expect(result.success).toBeFalsy()
-    if(result.issues)
-      expect(result.issues[0].message).toBe('Invalid number, it is not a Float32 number')
-      // expect(result.issues[0].message).toBe(`It should be less than or equal to ${FLOAT32_MAX}`)
+    [FLOAT32_MIN - 1.1e38, FLOAT32_MAX + 1.1e38, FLOAT32_MIN, FLOAT32_MAX]
+    .forEach(value => {
+      result = v.safeParse(Float64Schema, value)
+      expect(result.success).toBeTruthy()
+      if(result.success)
+        // expect(result).toHaveProperty('output')
+        expect(result.output).toBeTypeOf('number')
+    })
   })
 })
 
