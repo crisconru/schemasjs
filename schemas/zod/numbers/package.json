@@ -1,6 +1,6 @@
 {
   "name": "@schemasjs/zod-numbers",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Javascript (and Typescript) zod number schemas",
   "author": "Cristobal Contreras Rubio",
   "license": "MIT",
@@ -58,7 +58,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {
-    "zod": "^3.23.8"
+    "zod": "^3.24.2"
   },
   "ts-standard": {
     "ignore": [
