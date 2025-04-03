@@ -55,7 +55,7 @@ describe('Valibot', () => {
   })
 })
 
-describe.skip('Zod', () => {
+describe('Zod', () => {
   const Uint8Schema = ZodValidator<Uint8Zod>(Uint8ZodSchema)
   const Float32Schema = ZodValidator<Float32Zod>(Float32ZodSchema)
 
