@@ -21,10 +21,10 @@ export interface Schema<T> {
 
 export const ZodValidator = <T>(schema: z.ZodSchema): Schema<T> => ({
   is: (data: any): boolean => schema.safeParse(data).success,
-  parse: (data: any) => schema.parse(data),
+  parse: (data: any) => schema.parse(data) as T,
   safeParse: (data: any) => {
     const parsed = schema.safeParse(data)
-    if (parsed.success) return { success: parsed.success, value: parsed.data }
+    if (parsed.success) return { success: parsed.success, value: parsed.data as T }
     return { success: parsed.success, errors: [parsed.error.message] }
   }
 })
