@@ -1,0 +1,65 @@
+name: Publish to npm
+
+on:
+  repository_dispatch:
+    types: [publish-package]
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Package short name: validator, valibot-numbers, or zod-numbers"
+        required: true
+        type: choice
+        options:
+          - validator
+          - valibot-numbers
+          - zod-numbers
+      tag:
+        description: "Tag to check out from Codeberg (e.g. validator-v2.0.3)"
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Resolve inputs and map package to directory
+        id: vars
+        run: |
+          PKG="${{ github.event.client_payload.package || inputs.package }}"
+          TAG="${{ github.event.client_payload.tag || inputs.tag }}"
+          case "$PKG" in
+            validator)        DIR="validator" ;;
+            valibot-numbers)  DIR="schemas/valibot/numbers" ;;
+            zod-numbers)      DIR="schemas/zod/numbers" ;;
+            *) echo "::error::Unknown package: $PKG (expected: validator, valibot-numbers, zod-numbers)"; exit 1 ;;
+          esac
+          echo "package=$PKG" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG"     >> "$GITHUB_OUTPUT"
+          echo "dir=$DIR"     >> "$GITHUB_OUTPUT"
+          echo "Will publish $PKG from $DIR at tag $TAG"
+
+      - name: Clone source from Codeberg at tag
+        run: |
+          git clone --depth 1 --branch "${{ steps.vars.outputs.tag }}" \
+            https://codeberg.org/crisconru/schemasjs.git source
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install workspace dependencies
+        working-directory: source
+        run: npm ci
+
+      - name: Build package
+        working-directory: source/${{ steps.vars.outputs.dir }}
+        run: npm run build --if-present
+
+      - name: Publish to npm (OIDC trusted publishing)
+        working-directory: source/${{ steps.vars.outputs.dir }}
+        run: npm publish --access public
