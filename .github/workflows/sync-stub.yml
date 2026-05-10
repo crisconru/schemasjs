@@ -1,0 +1,69 @@
+name: Sync stub README/LICENSE from Codeberg
+
+on:
+  repository_dispatch:
+    types: [sync-stub]
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: "Codeberg commit SHA to sync from (default: main HEAD)"
+        required: false
+        type: string
+        default: "main"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve source ref
+        id: vars
+        run: |
+          REF="${{ github.event.client_payload.source_commit || inputs.source_commit || 'main' }}"
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch README and LICENSE from Codeberg
+        run: |
+          REF="${{ steps.vars.outputs.ref }}"
+          BASE="https://codeberg.org/crisconru/schemasjs/raw/commit/$REF"
+          # Try as commit; fall back to branch if 404 (when REF is "main" or a branch name).
+          if ! curl -fsSL "$BASE/README.md" -o source-README.md 2>/dev/null; then
+            BASE="https://codeberg.org/crisconru/schemasjs/raw/branch/$REF"
+            curl -fsSL "$BASE/README.md" -o source-README.md
+          fi
+          curl -fsSL "$BASE/LICENSE" -o LICENSE
+
+      - name: Build stub README with banner
+        run: |
+          # Strip any leading blockquote banner from the Codeberg README (Phase 2
+          # added a "Home of SchemasJS / source of truth" banner that would
+          # duplicate the stub-context banner we add below).
+          awk '
+            /^>/ && !done { stripping=1; next }
+            /^$/ && stripping && !done { next }
+            { stripping=0; done=1; print }
+          ' source-README.md > source-README-stripped.md
+
+          cat > README.md <<'BANNER'
+          > **🏠 This is the publish-only mirror of [SchemasJS](https://codeberg.org/crisconru/schemasjs).**
+          >
+          > Source code, issues, pull requests, and discussions live on Codeberg. This GitHub repository exists only to publish npm packages via OIDC trusted publishing (which doesn't currently support Codeberg / Woodpecker).
+
+          BANNER
+          cat source-README-stripped.md >> README.md
+          rm source-README.md source-README-stripped.md
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "schemasjs-stub-sync"
+          git config user.email "noreply@codeberg-sync.local"
+          git add README.md LICENSE
+          if git diff --cached --quiet; then
+            echo "Stub already up-to-date with Codeberg."
+            exit 0
+          fi
+          git commit -m "sync: README/LICENSE from Codeberg @ ${{ steps.vars.outputs.ref }}"
+          git push origin main
