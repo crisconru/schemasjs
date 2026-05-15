@@ -60,6 +60,6 @@ jobs:
         working-directory: source/${{ steps.vars.outputs.dir }}
         run: npm run build --if-present
 
-      - name: Publish to npm (OIDC trusted publishing)
+      - name: Publish to npm (OIDC trusted publishing, no provenance)
         working-directory: source/${{ steps.vars.outputs.dir }}
-        run: npm publish --access public
+        run: npm publish --access public --provenance=false
