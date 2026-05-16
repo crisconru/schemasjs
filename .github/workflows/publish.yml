@@ -52,14 +52,18 @@ jobs:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Install pnpm
+        working-directory: source
+        run: corepack enable
+
       - name: Install workspace dependencies
         working-directory: source
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build package
-        working-directory: source/${{ steps.vars.outputs.dir }}
-        run: npm run build --if-present
+        working-directory: source
+        run: pnpm --filter @schemasjs/${{ steps.vars.outputs.package }} build
 
-      - name: Publish to npm (OIDC trusted publishing, no provenance)
-        working-directory: source/${{ steps.vars.outputs.dir }}
-        run: npm publish --access public --provenance=false
+      - name: Publish to npm (OIDC trusted publishing)
+        working-directory: source
+        run: pnpm publish --access public --filter @schemasjs/${{ steps.vars.outputs.package }} --no-git-checks --provenance=false
