@@ -4,7 +4,7 @@
 
 > **注意：** 本中文内容由 AI 辅助翻译。我不懂中文，但希望这些内容能对你有所帮助。如有不妥之处，敬请谅解。
 
-<img src="https://codeberg.org/crisconru/schemasjs/raw/branch/main/logos/schemajs-logo-light.svg" alt="SchemasJS" width="180" align="left" style="margin-right: 1.5rem" />
+<img src="logos/schemajs-logo-light.svg" alt="SchemasJS" width="180" align="left" style="margin-right: 1.5rem" />
 
 **SchemasJS** 之于运行时验证模式，正如 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) 之于 TypeScript 类型定义——一个按验证库组织的、社区维护的即用型模式集合。
 

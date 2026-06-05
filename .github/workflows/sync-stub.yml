@@ -25,7 +25,7 @@ jobs:
           REF="${{ github.event.client_payload.source_commit || inputs.source_commit || 'main' }}"
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
 
-      - name: Fetch READMEs and LICENSE from Codeberg
+      - name: Fetch READMEs, LICENSE, and logos from Codeberg
         run: |
           REF="${{ steps.vars.outputs.ref }}"
           BASE="https://codeberg.org/crisconru/schemasjs/raw/commit/$REF"
@@ -35,9 +35,12 @@ jobs:
           for f in README.md README.es.md README.zh-cn.md LICENSE; do
             curl -fsSL "$BASE/$f" -o "$f" || true
           done
+          for logo in schemajs-logo-light.svg schemajs-logo-dark.svg; do
+            curl -fsSL "$BASE/logos/$logo" -o "logos/$logo" || true
+          done
           cp README.md source-README.md
 
-      - name: Build stub READMEs with banner
+      - name: Build stub READMEs with banner and local logo
         run: |
           BANNER='> **🏠 This is the publish-only mirror of [SchemasJS](https://codeberg.org/crisconru/schemasjs).**
           >
@@ -53,7 +56,9 @@ jobs:
                 /^>/ && !done { stripping=1; next }
                 /^$/ && stripping && !done { next }
                 { stripping=0; done=1; print }
-              ' "$SRC" | { printf '%s\n\n' "$BANNER"; cat; } > "$DST"
+              ' "$SRC" | \
+                sed 's|https://codeberg.org/crisconru/schemasjs/raw/branch/main/logos/|logos/|g' | \
+                { printf '%s\n\n' "$BANNER"; cat; } > "$DST"
             fi
           done
           rm -f source-README.md source-README.es.md source-README.zh-cn.md
@@ -62,10 +67,10 @@ jobs:
         run: |
           git config user.name "schemasjs-stub-sync"
           git config user.email "noreply@codeberg-sync.local"
-          git add README.md README.es.md README.zh-cn.md LICENSE
+          git add README.md README.es.md README.zh-cn.md LICENSE logos/
           if git diff --cached --quiet; then
             echo "Stub already up-to-date with Codeberg."
             exit 0
           fi
-          git commit -m "sync: READMEs/LICENSE from Codeberg @ ${{ steps.vars.outputs.ref }}"
+          git commit -m "sync: READMEs/LICENSE/logos from Codeberg @ ${{ steps.vars.outputs.ref }}"
           git push origin main

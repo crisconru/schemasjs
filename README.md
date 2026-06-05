@@ -6,7 +6,7 @@
 
 > **Read this in other languages:** [Español](README.es.md) · [简体中文](README.zh-cn.md)
 
-<img src="https://codeberg.org/crisconru/schemasjs/raw/branch/main/logos/schemajs-logo-light.svg" alt="SchemasJS" width="180" align="left" style="margin-right: 1.5rem" />
+<img src="logos/schemajs-logo-light.svg" alt="SchemasJS" width="180" align="left" style="margin-right: 1.5rem" />
 
 **SchemasJS** is to runtime validation schemas what [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) is to TypeScript type definitions — a collection of ready-to-use, community-maintained schemas organized by validator library.
 
