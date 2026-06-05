@@ -25,45 +25,47 @@ jobs:
           REF="${{ github.event.client_payload.source_commit || inputs.source_commit || 'main' }}"
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
 
-      - name: Fetch README and LICENSE from Codeberg
+      - name: Fetch READMEs and LICENSE from Codeberg
         run: |
           REF="${{ steps.vars.outputs.ref }}"
           BASE="https://codeberg.org/crisconru/schemasjs/raw/commit/$REF"
-          # Try as commit; fall back to branch if 404 (when REF is "main" or a branch name).
           if ! curl -fsSL "$BASE/README.md" -o source-README.md 2>/dev/null; then
             BASE="https://codeberg.org/crisconru/schemasjs/raw/branch/$REF"
-            curl -fsSL "$BASE/README.md" -o source-README.md
           fi
-          curl -fsSL "$BASE/LICENSE" -o LICENSE
+          for f in README.md README.es.md README.zh-cn.md LICENSE; do
+            curl -fsSL "$BASE/$f" -o "$f" || true
+          done
+          cp README.md source-README.md
 
-      - name: Build stub README with banner
+      - name: Build stub READMEs with banner
         run: |
-          # Strip any leading blockquote banner from the Codeberg README (Phase 2
-          # added a "Home of SchemasJS / source of truth" banner that would
-          # duplicate the stub-context banner we add below).
-          awk '
-            /^>/ && !done { stripping=1; next }
-            /^$/ && stripping && !done { next }
-            { stripping=0; done=1; print }
-          ' source-README.md > source-README-stripped.md
-
-          cat > README.md <<'BANNER'
-          > **🏠 This is the publish-only mirror of [SchemasJS](https://codeberg.org/crisconru/schemasjs).**
+          BANNER='> **🏠 This is the publish-only mirror of [SchemasJS](https://codeberg.org/crisconru/schemasjs).**
           >
-          > Source code, issues, pull requests, and discussions live on Codeberg. This GitHub repository exists only to publish npm packages via OIDC trusted publishing (which doesn't currently support Codeberg / Woodpecker).
+          > Source code, issues, pull requests, and discussions live on Codeberg. This GitHub repository exists only to publish npm packages via OIDC trusted publishing (which doesn'\''t currently support Codeberg / Woodpecker).
 
-          BANNER
-          cat source-README-stripped.md >> README.md
-          rm source-README.md source-README-stripped.md
+          '
+
+          for LANG in "" ".es" ".zh-cn"; do
+            SRC="source-README${LANG}.md"
+            DST="README${LANG}.md"
+            if [ -f "$SRC" ]; then
+              awk '
+                /^>/ && !done { stripping=1; next }
+                /^$/ && stripping && !done { next }
+                { stripping=0; done=1; print }
+              ' "$SRC" | { printf '%s\n\n' "$BANNER"; cat; } > "$DST"
+            fi
+          done
+          rm -f source-README.md source-README.es.md source-README.zh-cn.md
 
       - name: Commit and push if changed
         run: |
           git config user.name "schemasjs-stub-sync"
           git config user.email "noreply@codeberg-sync.local"
-          git add README.md LICENSE
+          git add README.md README.es.md README.zh-cn.md LICENSE
           if git diff --cached --quiet; then
             echo "Stub already up-to-date with Codeberg."
             exit 0
           fi
-          git commit -m "sync: README/LICENSE from Codeberg @ ${{ steps.vars.outputs.ref }}"
+          git commit -m "sync: READMEs/LICENSE from Codeberg @ ${{ steps.vars.outputs.ref }}"
           git push origin main
