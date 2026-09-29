@@ -29,14 +29,14 @@ jobs:
         run: |
           REF="${{ steps.vars.outputs.ref }}"
           BASE="https://codeberg.org/crisconru/schemasjs/raw/commit/$REF"
-          if ! curl -fsSL "$BASE/README.md" -o source-README.md 2>/dev/null; then
+          if ! curl --proto '=https' --tlsv1.2 -fsSL "$BASE/README.md" -o source-README.md 2>/dev/null; then
             BASE="https://codeberg.org/crisconru/schemasjs/raw/branch/$REF"
           fi
           for f in README.md README.es.md README.zh-cn.md LICENSE; do
-            curl -fsSL "$BASE/$f" -o "$f" || true
+            curl --proto '=https' --tlsv1.2 -fsSL "$BASE/$f" -o "$f" || true
           done
           for logo in schemajs-logo-light.svg schemajs-logo-dark.svg; do
-            curl -fsSL "$BASE/logos/$logo" -o "logos/$logo" || true
+            curl --proto '=https' --tlsv1.2 -fsSL "$BASE/logos/$logo" -o "logos/$logo" || true
           done
           cp README.md source-README.md
 
