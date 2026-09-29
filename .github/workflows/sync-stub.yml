@@ -65,8 +65,8 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git config user.name "schemasjs-stub-sync"
-          git config user.email "noreply@codeberg-sync.local"
+          git config user.name "Cristobal Contreras Rubio"
+          git config user.email "5649085+crisconru@users.noreply.github.com"
           git add README.md README.es.md README.zh-cn.md LICENSE logos/
           if git diff --cached --quiet; then
             echo "Stub already up-to-date with Codeberg."
