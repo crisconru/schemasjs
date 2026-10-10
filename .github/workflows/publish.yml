@@ -66,4 +66,6 @@ jobs:
 
       - name: Publish to npm (OIDC trusted publishing)
         working-directory: source
+        env:
+          NPM_CONFIG_PROVENANCE: "false"
         run: pnpm publish --access public --filter @schemasjs/${{ steps.vars.outputs.package }} --no-git-checks --provenance=false
