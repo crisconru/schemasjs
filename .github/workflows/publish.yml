@@ -65,7 +65,14 @@ jobs:
         run: pnpm --filter @schemasjs/${{ steps.vars.outputs.package }} build
 
       - name: Publish to npm (OIDC trusted publishing)
-        working-directory: source
+        working-directory: source/${{ steps.vars.outputs.dir }}
         env:
           NPM_CONFIG_PROVENANCE: "false"
-        run: pnpm publish --access public --filter @schemasjs/${{ steps.vars.outputs.package }} --no-git-checks --provenance=false
+        run: |
+          npm --version
+          pnpm pack --pack-destination "$RUNNER_TEMP/pkg"
+          npm publish "$RUNNER_TEMP"/pkg/*.tgz --access public --provenance=false
+        #working-directory: source
+        #env:
+        #  NPM_CONFIG_PROVENANCE: "false"
+        #run: pnpm publish --access public --filter @schemasjs/${{ steps.vars.outputs.package }} --no-git-checks --provenance=false
